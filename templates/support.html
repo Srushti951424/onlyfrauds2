@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAVACH - Support</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #000000;
+            --bg-light: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-muted: #666666;
+            --border: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px 40px;
+        }
+
+        .nav-logo {
+            font-size: 11px;
+            letter-spacing: 4px;
+            font-weight: 500;
+        }
+
+        .main {
+            padding: 100px 40px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .support-card {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 40px;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .support-card:hover {
+            background: rgba(255, 255, 255, 0.02);
+            border-color: var(--text-primary);
+            transform: translateY(-4px);
+        }
+
+        .support-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 25px;
+            opacity: 0.5;
+        }
+
+        .support-title {
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .support-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .form-section {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 60px;
+            margin-bottom: 80px;
+        }
+
+        .form-title {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 14px 18px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--text-primary);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .btn {
+            background: var(--text-primary);
+            border: none;
+            color: var(--bg-dark);
+            padding: 16px 40px;
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-weight: 500;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 60px rgba(255, 255, 255, 0.2);
+        }
+
+        .info-section {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .info-card {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 40px;
+        }
+
+        .info-card-title {
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-item {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-item-title {
+            font-size: 13px;
+            font-weight: 400;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .info-item-text {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .sla-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .sla-table th,
+        .sla-table td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        .sla-table th {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .status-operational { background: #00ff88; }
+        .status-degraded { background: #ffb800; }
+
+        .footer {
+            margin-top: 80px;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 968px) {
+            .support-grid {
+                grid-template-columns: 1fr;
+            }
+            .info-section {
+                grid-template-columns: 1fr;
+            }
+            .form-section {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">KAVACH</div>
+        </div>
+    </nav>
+
+    <main class="main">
+        <h1 class="page-title">SUPPORT</h1>
+        <p class="page-subtitle">We're Here to Help 24/7</p>
+
+        <div class="support-grid">
+            <div class="support-card" onclick="alert('Opening live chat...')">
+                <svg class="support-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"/>
+                </svg>
+                <h3 class="support-title">Live Chat</h3>
+                <p class="support-desc">Connect with our support team instantly via live chat. Available 24/7 for critical issues.</p>
+            </div>
+
+            <div class="support-card" onclick="alert('Opening email...')">
+                <svg class="support-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                </svg>
+                <h3 class="support-title">Email Support</h3>
+                <p class="support-desc">Send detailed inquiries to support@kavach.io. Response within 4 hours for priority tickets.</p>
+            </div>
+
+            <div class="support-card" onclick="alert('Opening phone support...')">
+                <svg class="support-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                </svg>
+                <h3 class="support-title">Phone Support</h3>
+                <p class="support-desc">Call our 24/7 SOC hotline at +1-800-KAVACH-1 for immediate assistance with critical incidents.</p>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2 class="form-title">Submit a Support Ticket</h2>
+
+            <form onsubmit="event.preventDefault(); alert('Ticket submitted successfully!');">
+                <div class="form-group">
+                    <label class="form-label">Your Name</label>
+                    <input type="text" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Priority Level</label>
+                    <select class="form-select" required>
+                        <option value="">Select Priority</option>
+                        <option value="critical">Critical - System Down</option>
+                        <option value="high">High - Major Functionality Impaired</option>
+                        <option value="medium">Medium - Minor Issue</option>
+                        <option value="low">Low - General Question</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Subject</label>
+                    <input type="text" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-textarea" required placeholder="Please provide as much detail as possible about your issue..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Affected Component</label>
+                    <select class="form-select">
+                        <option value="">Select Component</option>
+                        <option value="ingestion">Data Ingestion</option>
+                        <option value="correlation">AI Correlation Engine</option>
+                        <option value="dashboard">Dashboard & UI</option>
+                        <option value="api">API Integration</option>
+                        <option value="reports">Report Generation</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn">Submit Ticket</button>
+            </form>
+        </div>
+
+        <div class="info-section">
+            <div class="info-card">
+                <h3 class="info-card-title">Service Level Agreement</h3>
+
+                <table class="sla-table">
+                    <thead>
+                        <tr>
+                            <th>Priority</th>
+                            <th>Response Time</th>
+                            <th>Resolution Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Critical</td>
+                            <td>15 minutes</td>
+                            <td>4 hours</td>
+                        </tr>
+                        <tr>
+                            <td>High</td>
+                            <td>1 hour</td>
+                            <td>8 hours</td>
+                        </tr>
+                        <tr>
+                            <td>Medium</td>
+                            <td>4 hours</td>
+                            <td>24 hours</td>
+                        </tr>
+                        <tr>
+                            <td>Low</td>
+                            <td>24 hours</td>
+                            <td>72 hours</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-item">
+                    <div class="info-item-title">24/7 SOC Support</div>
+                    <div class="info-item-text">
+                        Our Security Operations Center is staffed 24/7/365 to provide immediate assistance for critical security incidents and platform issues.
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3 class="info-card-title">System Status</h3>
+
+                <div class="info-item">
+                    <div class="info-item-title">
+                        <span class="status-indicator status-operational"></span>
+                        Platform Core Services
+                    </div>
+                    <div class="info-item-text">All systems operational</div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-item-title">
+                        <span class="status-indicator status-operational"></span>
+                        Data Ingestion Pipeline
+                    </div>
+                    <div class="info-item-text">Processing 1.2M events/sec</div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-item-title">
+                        <span class="status-indicator status-operational"></span>
+                        AI Correlation Engine
+                    </div>
+                    <div class="info-item-text">All systems operational</div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-item-title">
+                        <span class="status-indicator status-degraded"></span>
+                        Report Generation
+                    </div>
+                    <div class="info-item-text">Slight delays (investigating)</div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-item-title">
+                        <span class="status-indicator status-operational"></span>
+                        API Endpoints
+                    </div>
+                    <div class="info-item-text">All endpoints responding normally</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card" style="margin-bottom: 80px;">
+            <h3 class="info-card-title">Incident Escalation Procedure</h3>
+
+            <div class="info-item">
+                <div class="info-item-title">Level 1 - Initial Response</div>
+                <div class="info-item-text">
+                    First-line support handles general inquiries, basic troubleshooting, and platform navigation assistance.
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-item-title">Level 2 - Technical Support</div>
+                <div class="info-item-text">
+                    Advanced technical issues, configuration problems, integration challenges, and API implementation support.
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-item-title">Level 3 - Engineering</div>
+                <div class="info-item-text">
+                    Complex platform issues, potential bugs, performance optimization, and custom deployment scenarios.
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-item-title">Critical Incident Response</div>
+                <div class="info-item-text">
+                    For production-down situations or active security incidents, immediate escalation to senior engineers and SOC analysts. Direct hotline: +1-800-KAVACH-1
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card" style="margin-bottom: 80px;">
+            <h3 class="info-card-title">Scheduled Maintenance</h3>
+
+            <div class="info-item">
+                <div class="info-item-title">Next Maintenance Window</div>
+                <div class="info-item-text">
+                    Sunday, January 12, 2025 02:00-04:00 UTC
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-item-title">Expected Impact</div>
+                <div class="info-item-text">
+                    Dashboard may be unavailable. Data ingestion and correlation will continue uninterrupted. Report generation may be delayed.
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-item-title">Notification Channels</div>
+                <div class="info-item-text">
+                    Maintenance notifications are sent via email, in-app alerts, and status page (status.kavach.io). Subscribe to receive SMS alerts for emergency maintenance.
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h3 class="info-card-title">Emergency Response Contacts</h3>
+
+            <div class="info-item">
+                <div class="info-item-title">Security Hotline</div>
+                <div class="info-item-text">
+                    +1-800-KAVACH-1 (24/7)<br>
+                    For active security incidents requiring immediate platform assistance
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-item-title">Technical Support Email</div>
+                <div class="info-item-text">
+                    support@kavach.io<br>
+                    Response within 4 hours (priority) or 24 hours (standard)
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-item-title">Enterprise Support</div>
+                <div class="info-item-text">
+                    enterprise@kavach.io<br>
+                    Dedicated support for enterprise customers with custom SLAs
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-item-title">Security Vulnerability Reports</div>
+                <div class="info-item-text">
+                    security@kavach.io (PGP key available)<br>
+                    Responsible disclosure program with bounty rewards
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2025 PROJECT KAVACH — SUPPORT CENTER
+        </div>
+    </main>
+</body>
+</html>

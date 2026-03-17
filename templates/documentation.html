@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAVACH - Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #000000;
+            --bg-light: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-muted: #666666;
+            --border: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px 40px;
+        }
+
+        .nav-logo {
+            font-size: 11px;
+            letter-spacing: 4px;
+            font-weight: 500;
+        }
+
+        .main {
+            padding: 100px 40px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 60px;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .sidebar-section {
+            margin-bottom: 40px;
+        }
+
+        .sidebar-title {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            padding: 12px 0;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 2px solid transparent;
+            padding-left: 15px;
+        }
+
+        .sidebar-item:hover, .sidebar-item.active {
+            color: var(--text-primary);
+            border-left-color: var(--text-primary);
+        }
+
+        .content {
+            padding-bottom: 80px;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            margin-bottom: 60px;
+        }
+
+        .doc-section {
+            margin-bottom: 80px;
+        }
+
+        .doc-title {
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .doc-subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin: 40px 0 20px;
+        }
+
+        .doc-text {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        .doc-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .doc-list li {
+            padding: 12px 0 12px 30px;
+            position: relative;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .doc-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--text-primary);
+        }
+
+        .code-block {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 25px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            color: #00ff88;
+        }
+
+        .info-box {
+            background: rgba(255, 184, 0, 0.05);
+            border: 1px solid rgba(255, 184, 0, 0.3);
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .info-box-title {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #ffb800;
+            margin-bottom: 12px;
+        }
+
+        .info-box-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .diagram {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 40px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .diagram-title {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .diagram-content {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .diagram-box {
+            padding: 20px 30px;
+            border: 1px solid var(--border);
+            font-size: 12px;
+            letter-spacing: 1px;
+            min-width: 150px;
+        }
+
+        .diagram-arrow {
+            font-size: 20px;
+            color: var(--text-muted);
+        }
+
+        .footer {
+            margin-top: 80px;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 968px) {
+            .main {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .sidebar {
+                position: static;
+            }
+            .diagram-content {
+                flex-direction: column;
+            }
+            .diagram-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">KAVACH</div>
+        </div>
+    </nav>
+
+    <main class="main">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Getting Started</div>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item active">Platform Overview</li>
+                    <li class="sidebar-item">Quick Start Guide</li>
+                    <li class="sidebar-item">System Requirements</li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Architecture</div>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item">System Design</li>
+                    <li class="sidebar-item">Data Flow</li>
+                    <li class="sidebar-item">Security Model</li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Deployment</div>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item">Installation Guide</li>
+                    <li class="sidebar-item">Cloud Deployment</li>
+                    <li class="sidebar-item">On-Premise Setup</li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Usage</div>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item">SOC Analyst Workflows</li>
+                    <li class="sidebar-item">Kill-Chain Analysis</li>
+                    <li class="sidebar-item">Report Generation</li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Reference</div>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item">Best Practices</li>
+                    <li class="sidebar-item">Troubleshooting</li>
+                    <li class="sidebar-item">FAQ</li>
+                </ul>
+            </div>
+        </aside>
+
+        <div class="content">
+            <h1 class="page-title">DOCUMENTATION</h1>
+            <p class="page-subtitle">Complete Guide to KAVACH Platform</p>
+
+            <div class="doc-section">
+                <h2 class="doc-title">Platform Overview</h2>
+
+                <p class="doc-text">
+                    KAVACH is an advanced AI-powered cyber kill-chain reconstruction platform designed to automatically correlate security events across your entire infrastructure. By leveraging machine learning and sophisticated correlation algorithms, KAVACH transforms raw security logs into actionable intelligence, revealing complete attack paths from initial reconnaissance to data exfiltration.
+                </p>
+
+                <p class="doc-text">
+                    The platform operates autonomously, continuously analyzing millions of events per second to detect patterns that indicate coordinated attacks. Unlike traditional SIEM solutions that require extensive manual correlation, KAVACH's AI engine automatically identifies relationships between disparate events, constructing a comprehensive timeline of attacker activities.
+                </p>
+
+                <div class="info-box">
+                    <div class="info-box-title">Key Capabilities</div>
+                    <div class="info-box-text">
+                        KAVACH provides real-time threat detection, automated kill-chain reconstruction, forensic evidence collection with chain of custody tracking, and AI-generated reports with actionable remediation guidance. The platform is designed for enterprise-scale deployments with support for millions of events per second.
+                    </div>
+                </div>
+
+                <h3 class="doc-subtitle">Core Features</h3>
+
+                <ul class="doc-list">
+                    <li>Automated data ingestion from networks, endpoints, firewalls, and cloud infrastructure</li>
+                    <li>AI-powered event correlation across disparate systems and time windows</li>
+                    <li>Interactive attack graph visualization showing lateral movement and progression</li>
+                    <li>Chronological timeline reconstruction with precise event ordering</li>
+                    <li>Forensic evidence collection with cryptographic verification</li>
+                    <li>Role-based access control for analysts, investigators, and executives</li>
+                    <li>Automated report generation with executive summaries and technical details</li>
+                    <li>RESTful API for integration with existing security tools</li>
+                </ul>
+            </div>
+
+            <div class="doc-section">
+                <h2 class="doc-title">System Architecture</h2>
+
+                <div class="diagram">
+                    <div class="diagram-title">Data Flow Architecture</div>
+                    <div class="diagram-content">
+                        <div class="diagram-box">DATA SOURCES<br><span style="font-size: 10px; color: var(--text-muted);">Logs & Events</span></div>
+                        <div class="diagram-arrow">→</div>
+                        <div class="diagram-box">INGESTION<br><span style="font-size: 10px; color: var(--text-muted);">Normalization</span></div>
+                        <div class="diagram-arrow">→</div>
+                        <div class="diagram-box">AI ENGINE<br><span style="font-size: 10px; color: var(--text-muted);">Correlation</span></div>
+                        <div class="diagram-arrow">→</div>
+                        <div class="diagram-box">ANALYSIS<br><span style="font-size: 10px; color: var(--text-muted);">Kill-Chain</span></div>
+                        <div class="diagram-arrow">→</div>
+                        <div class="diagram-box">REPORTS<br><span style="font-size: 10px; color: var(--text-muted);">Forensics</span></div>
+                    </div>
+                </div>
+
+                <p class="doc-text">
+                    The platform architecture consists of five primary layers working in concert to transform raw security data into actionable intelligence. Each layer is designed for horizontal scalability, ensuring the system can handle enterprise-scale data volumes while maintaining sub-second query performance.
+                </p>
+
+                <h3 class="doc-subtitle">Data Ingestion Layer</h3>
+
+                <p class="doc-text">
+                    The ingestion layer supports multiple protocols and formats including Syslog, CEF, LEEF, JSON, and custom formats. Data is normalized in real-time using field mapping and enrichment pipelines. The system can ingest from on-premise infrastructure, cloud services, SaaS applications, and hybrid environments.
+                </p>
+
+                <div class="code-block">
+# Example: Configure Syslog Ingestion
+kvch config add-source \
+  --type syslog \
+  --protocol tcp \
+  --port 514 \
+  --format cef \
+  --source-name "palo-alto-firewall"
+                </div>
+
+                <h3 class="doc-subtitle">AI Correlation Engine</h3>
+
+                <p class="doc-text">
+                    The correlation engine uses ensemble machine learning models trained on known attack patterns and adversary tactics. The system employs temporal correlation to identify events that occur within suspicious time windows, behavioral analysis to detect anomalous patterns, and graph analysis to map relationships between entities.
+                </p>
+
+                <ul class="doc-list">
+                    <li>Temporal correlation with configurable time windows (seconds to days)</li>
+                    <li>Entity relationship mapping (users, hosts, processes, files, networks)</li>
+                    <li>MITRE ATT&CK framework mapping for tactic and technique identification</li>
+                    <li>Anomaly detection based on baseline behavioral models</li>
+                    <li>Threat intelligence integration for IOC matching</li>
+                </ul>
+            </div>
+
+            <div class="doc-section">
+                <h2 class="doc-title">Deployment Guide</h2>
+
+                <h3 class="doc-subtitle">System Requirements</h3>
+
+                <p class="doc-text">
+                    KAVACH can be deployed on-premise, in the cloud, or as a hybrid solution. Minimum requirements vary based on expected event volume and retention requirements.
+                </p>
+
+                <ul class="doc-list">
+                    <li>Compute: 16 CPU cores, 64GB RAM minimum (recommend 32 cores, 128GB for production)</li>
+                    <li>Storage: 2TB SSD for hot data, expandable object storage for archives</li>
+                    <li>Network: 10Gbps network interface for high-volume environments</li>
+                    <li>Operating System: Ubuntu 22.04 LTS, RHEL 8+, or Kubernetes 1.25+</li>
+                    <li>Database: PostgreSQL 14+ with TimescaleDB extension</li>
+                </ul>
+
+                <h3 class="doc-subtitle">Installation Steps</h3>
+
+                <div class="code-block">
+# 1. Download and verify KAVACH package
+wget https://releases.kavach.io/kavach-latest.tar.gz
+sha256sum -c kavach-latest.tar.gz.sha256
+
+# 2. Extract and run installer
+tar -xzf kavach-latest.tar.gz
+cd kavach
+sudo ./install.sh
+
+# 3. Initialize database
+kvch db init --create-admin
+
+# 4. Start services
+sudo systemctl start kavach
+sudo systemctl enable kavach
+
+# 5. Verify installation
+kvch status
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">Security Note</div>
+                    <div class="info-box-text">
+                        Always deploy KAVACH in a secure network segment with restricted access. Enable TLS for all communications, implement strong authentication policies, and regularly review audit logs. The platform handles sensitive security data and should be treated as a critical security infrastructure component.
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-section">
+                <h2 class="doc-title">SOC Analyst Workflows</h2>
+
+                <p class="doc-text">
+                    KAVACH is designed to streamline security operations workflows, reducing mean time to detect (MTTD) and mean time to respond (MTTR). The platform automates the most time-consuming aspects of incident investigation, allowing analysts to focus on response and remediation.
+                </p>
+
+                <h3 class="doc-subtitle">Alert Triage</h3>
+
+                <p class="doc-text">
+                    When KAVACH detects a potential threat, it automatically generates an alert with associated confidence score, affected assets, related events, and recommended actions. Analysts can quickly assess alert validity using the provided context.
+                </p>
+
+                <ol style="list-style: decimal; margin-left: 30px; color: var(--text-muted);">
+                    <li style="padding: 10px 0;">Review alert details and confidence score in the dashboard</li>
+                    <li style="padding: 10px 0;">Examine the interactive attack graph to understand attack progression</li>
+                    <li style="padding: 10px 0;">Analyze the chronological timeline for detailed event sequence</li>
+                    <li style="padding: 10px 0;">Investigate indicators of compromise (IOCs) and affected systems</li>
+                    <li style="padding: 10px 0;">Generate forensic report for incident documentation</li>
+                    <li style="padding: 10px 0;">Execute containment actions and monitor for continued activity</li>
+                </ol>
+
+                <h3 class="doc-subtitle">Kill-Chain Interpretation</h3>
+
+                <p class="doc-text">
+                    KAVACH maps detected activities to the Cyber Kill Chain framework, helping analysts understand where in the attack lifecycle the adversary currently operates. This enables targeted response strategies.
+                </p>
+
+                <ul class="doc-list">
+                    <li><strong>Reconnaissance:</strong> Network scanning, port enumeration, OSINT gathering</li>
+                    <li><strong>Weaponization:</strong> Malware staging, payload preparation</li>
+                    <li><strong>Delivery:</strong> Phishing emails, malicious attachments, drive-by downloads</li>
+                    <li><strong>Exploitation:</strong> Vulnerability exploitation, code execution</li>
+                    <li><strong>Installation:</strong> Persistence mechanisms, backdoor deployment</li>
+                    <li><strong>Command & Control:</strong> C2 communications, remote access</li>
+                    <li><strong>Actions on Objectives:</strong> Data exfiltration, destruction, manipulation</li>
+                </ul>
+            </div>
+
+            <div class="doc-section">
+                <h2 class="doc-title">Best Practices</h2>
+
+                <h3 class="doc-subtitle">Data Source Configuration</h3>
+
+                <p class="doc-text">
+                    Configure all available data sources for maximum visibility. The more data KAVACH ingests, the more accurate its correlation and analysis becomes. Prioritize high-value sources like endpoint detection, network traffic, and authentication logs.
+                </p>
+
+                <h3 class="doc-subtitle">Alert Tuning</h3>
+
+                <p class="doc-text">
+                    Regularly review and tune alert thresholds to minimize false positives while maintaining high detection rates. Use analyst feedback to train the AI engine and improve correlation accuracy over time.
+                </p>
+
+                <h3 class="doc-subtitle">Retention Policies</h3>
+
+                <p class="doc-text">
+                    Balance retention requirements with storage costs. Keep hot data (recent 30-90 days) on high-performance storage for rapid queries. Archive older data to cost-effective cold storage while maintaining accessibility for historical investigations.
+                </p>
+
+                <h3 class="doc-subtitle">Regular Updates</h3>
+
+                <p class="doc-text">
+                    Keep KAVACH updated with the latest threat intelligence feeds, correlation rules, and software patches. Enable automatic updates for threat intelligence while scheduling maintenance windows for platform updates.
+                </p>
+            </div>
+
+            <div class="doc-section">
+                <h2 class="doc-title">Troubleshooting</h2>
+
+                <h3 class="doc-subtitle">Ingestion Issues</h3>
+
+                <div class="code-block">
+# Check ingestion status
+kvch ingestion status
+
+# View ingestion logs
+kvch logs ingestion --tail 100
+
+# Test connectivity to data source
+kvch test-source --name "firewall-01"
+
+# Restart ingestion service
+sudo systemctl restart kavach-ingestion
+                </div>
+
+                <h3 class="doc-subtitle">Performance Optimization</h3>
+
+                <p class="doc-text">
+                    If experiencing slow query performance, check database indexing, review retention policies to reduce dataset size, increase allocated memory for the correlation engine, and consider horizontal scaling with additional nodes.
+                </p>
+
+                <h3 class="doc-subtitle">Common Error Messages</h3>
+
+                <ul class="doc-list">
+                    <li><strong>Connection Timeout:</strong> Verify network connectivity and firewall rules</li>
+                    <li><strong>Authentication Failed:</strong> Check API keys and user credentials</li>
+                    <li><strong>Out of Memory:</strong> Increase JVM heap size or add more RAM</li>
+                    <li><strong>Database Connection Error:</strong> Verify PostgreSQL service is running</li>
+                </ul>
+            </div>
+
+            <div class="footer">
+                © 2025 PROJECT KAVACH — PLATFORM DOCUMENTATION
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAVACH - About</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #000000;
+            --bg-light: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-muted: #666666;
+            --border: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px 40px;
+        }
+
+        .nav-logo {
+            font-size: 11px;
+            letter-spacing: 4px;
+            font-weight: 500;
+        }
+
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 150px 40px 100px;
+            position: relative;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.02) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            max-width: 900px;
+        }
+
+        .hero-title {
+            font-size: 72px;
+            font-weight: 300;
+            letter-spacing: 8px;
+            margin-bottom: 30px;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            line-height: 2;
+            font-weight: 300;
+        }
+
+        .section {
+            padding: 100px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .section-text {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 2;
+            margin-bottom: 30px;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .value-card {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 50px 40px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .value-card:hover {
+            background: rgba(255, 255, 255, 0.02);
+            border-color: var(--text-primary);
+            transform: translateY(-4px);
+        }
+
+        .value-icon {
+            font-size: 48px;
+            margin-bottom: 25px;
+            opacity: 0.7;
+        }
+
+        .value-title {
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .value-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.9;
+        }
+
+        .stats-section {
+            background: var(--bg-light);
+            padding: 100px 40px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 56px;
+            font-weight: 200;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .timeline-section {
+            padding: 100px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 60px;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-primary);
+            border: 2px solid var(--bg-dark);
+        }
+
+        .timeline-item:after {
+            content: '';
+            position: absolute;
+            left: 25px;
+            top: 20px;
+            bottom: -60px;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item:last-child:after {
+            display: none;
+        }
+
+        .timeline-year {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .timeline-title {
+            font-size: 20px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .timeline-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .team-section {
+            padding: 100px 40px;
+            background: var(--bg-light);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 30px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            background: rgba(255, 255, 255, 0.02);
+            border-color: var(--text-muted);
+        }
+
+        .member-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--border);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 300;
+        }
+
+        .member-name {
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .member-role {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .partners-section {
+            padding: 100px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .partner-card {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1;
+            transition: all 0.3s ease;
+        }
+
+        .partner-card:hover {
+            border-color: var(--text-muted);
+        }
+
+        .partner-name {
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
+
+        .footer {
+            margin-top: 80px;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 968px) {
+            .hero-title { font-size: 48px; letter-spacing: 4px; }
+            .values-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
+            .partners-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 568px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: 1fr; }
+            .partners-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">KAVACH</div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">ABOUT KAVACH</h1>
+            <p class="hero-subtitle">
+                Pioneering autonomous cyber defense through artificial intelligence. We're building the future of threat intelligence, where machines work tirelessly to protect what matters most.
+            </p>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Our Mission</h2>
+        <p class="section-text">
+            KAVACH was born from a simple observation: security teams are drowning in data but starving for intelligence. Traditional SIEM solutions generate endless alerts, but they lack the cognitive ability to understand how these alerts connect into coordinated attacks.
+        </p>
+        <p class="section-text">
+            We set out to solve this fundamental problem by building an AI-powered platform that doesn't just collect data—it understands it. KAVACH automatically reconstructs complete cyber kill chains, revealing the full scope of attacks from initial reconnaissance to data exfiltration. This empowers security teams to respond faster, investigate deeper, and defend more effectively.
+        </p>
+        <p class="section-text">
+            Our mission is to democratize advanced threat intelligence, making enterprise-grade cyber defense accessible to organizations of all sizes. We believe that every organization deserves the ability to understand and respond to sophisticated cyber attacks.
+        </p>
+
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">🎯</div>
+                <h3 class="value-title">Precision</h3>
+                <p class="value-desc">
+                    Our AI engines are trained on billions of security events, delivering 99.9% detection accuracy with minimal false positives.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">⚡</div>
+                <h3 class="value-title">Speed</h3>
+                <p class="value-desc">
+                    Autonomous correlation and analysis happen in real-time, reducing mean time to detect from days to hours.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🔒</div>
+                <h3 class="value-title">Security</h3>
+                <p class="value-desc">
+                    Built with defense-grade security standards, trusted by government agencies and Fortune 500 companies.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🤝</div>
+                <h3 class="value-title">Partnership</h3>
+                <p class="value-desc">
+                    We work alongside your security team, augmenting human expertise with machine intelligence.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🌐</div>
+                <h3 class="value-title">Innovation</h3>
+                <p class="value-desc">
+                    Continuous research and development keeps us at the forefront of threat detection technology.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🛡️</div>
+                <h3 class="value-title">Resilience</h3>
+                <p class="value-desc">
+                    Designed for 24/7 autonomous operation with enterprise-grade reliability and redundancy.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value">10M+</div>
+                <div class="stat-label">Events Analyzed Daily</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">99.9%</div>
+                <div class="stat-label">Detection Accuracy</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">&lt;4h</div>
+                <div class="stat-label">Mean Time to Detect</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">24/7</div>
+                <div class="stat-label">Autonomous Operation</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="timeline-section">
+        <h2 class="section-title">Our Journey</h2>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2022</div>
+            <h3 class="timeline-title">Foundation</h3>
+            <p class="timeline-desc">
+                KAVACH founded by a team of cybersecurity researchers and AI engineers frustrated with the limitations of traditional SIEM solutions. Initial research begins on autonomous threat correlation.
+            </p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2023</div>
+            <h3 class="timeline-title">AI Breakthrough</h3>
+            <p class="timeline-desc">
+                First successful demonstration of AI-powered kill-chain reconstruction. Patent filed for novel correlation algorithm. Seed funding secured from defense-focused venture capital.
+            </p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2024</div>
+            <h3 class="timeline-title">Enterprise Launch</h3>
+            <p class="timeline-desc">
+                KAVACH platform officially launched to enterprise customers. First government defense contract signed. Platform processes first billion security events.
+            </p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2025</div>
+            <h3 class="timeline-title">Global Expansion</h3>
+            <p class="timeline-desc">
+                Expansion into international markets with regional data centers. Community platform launched. Platform now protecting critical infrastructure across 15 countries.
+            </p>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <h2 class="section-title">Leadership Team</h2>
+
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-avatar">AS</div>
+                <h4 class="member-name">Dr. Arjun Shah</h4>
+                <p class="member-role">Founder & CEO</p>
+            </div>
+
+            <div class="team-member">
+                <div class="member-avatar">PM</div>
+                <h4 class="member-name">Priya Mehta</h4>
+                <p class="member-role">Chief Technology Officer</p>
+            </div>
+
+            <div class="team-member">
+                <div class="member-avatar">RK</div>
+                <h4 class="member-name">Rajesh Kumar</h4>
+                <p class="member-role">VP Engineering</p>
+            </div>
+
+            <div class="team-member">
+                <div class="member-avatar">SK</div>
+                <h4 class="member-name">Sneha Kapoor</h4>
+                <p class="member-role">Chief Security Officer</p>
+            </div>
+
+            <div class="team-member">
+                <div class="member-avatar">VR</div>
+                <h4 class="member-name">Vikram Rao</h4>
+                <p class="member-role">Head of AI Research</p>
+            </div>
+
+            <div class="team-member">
+                <div class="member-avatar">AD</div>
+                <h4 class="member-name">Ananya Desai</h4>
+                <p class="member-role">VP Product</p>
+            </div>
+
+            <div class="team-member">
+                <div class="member-avatar">MS</div>
+                <h4 class="member-name">Manoj Singh</h4>
+                <p class="member-role">Chief Operations Officer</p>
+            </div>
+
+            <div class="team-member">
+                <div class="member-avatar">NP</div>
+                <h4 class="member-name">Neha Patel</h4>
+                <p class="member-role">Head of Customer Success</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="partners-section">
+        <h2 class="section-title">Trusted Partners</h2>
+
+        <div class="partners-grid">
+            <div class="partner-card">
+                <span class="partner-name">AWS</span>
+            </div>
+            <div class="partner-card">
+                <span class="partner-name">Microsoft Azure</span>
+            </div>
+            <div class="partner-card">
+                <span class="partner-name">Palo Alto Networks</span>
+            </div>
+            <div class="partner-card">
+                <span class="partner-name">CrowdStrike</span>
+            </div>
+            <div class="partner-card">
+                <span class="partner-name">Splunk</span>
+            </div>
+            <div class="partner-card">
+                <span class="partner-name">Okta</span>
+            </div>
+            <div class="partner-card">
+                <span class="partner-name">Cisco</span>
+            </div>
+            <div class="partner-card">
+                <span class="partner-name">Fortinet</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Why KAVACH?</h2>
+        <p class="section-text">
+            The name "KAVACH" comes from Sanskrit, meaning "shield" or "armor." In Indian mythology, KAVACH represents divine protection—an impenetrable defense against threats. This perfectly embodies our mission: to be the shield that protects organizations from sophisticated cyber attacks.
+        </p>
+        <p class="section-text">
+            Like ancient armor that protected warriors in battle, our platform provides continuous, autonomous protection for modern digital infrastructure. We believe this protection should be intelligent, adaptive, and always vigilant—qualities that define KAVACH.
+        </p>
+    </section>
+
+    <div class="footer">
+        © 2025 PROJECT KAVACH — ABOUT US
+    </div>
+</body>
+</html>

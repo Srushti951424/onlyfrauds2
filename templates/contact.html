@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAVACH - Contact</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #000000;
+            --bg-light: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-muted: #666666;
+            --border: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px 40px;
+        }
+
+        .nav-logo {
+            font-size: 11px;
+            letter-spacing: 4px;
+            font-weight: 500;
+        }
+
+        .main {
+            padding: 100px 40px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+
+        .contact-form {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 60px;
+        }
+
+        .form-title {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 14px 18px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--text-primary);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .btn {
+            background: var(--text-primary);
+            border: none;
+            color: var(--bg-dark);
+            padding: 16px 40px;
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-weight: 500;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 60px rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .info-card {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            background: rgba(255, 255, 255, 0.02);
+            border-color: var(--text-muted);
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .info-title {
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-bottom: 15px;
+        }
+
+        .info-detail {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .info-detail a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .info-detail a:hover {
+            opacity: 0.7;
+        }
+
+        .offices-section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .offices-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .office-card {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .office-location {
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .office-address {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .map-section {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 40px;
+            margin-bottom: 80px;
+        }
+
+        .map-placeholder {
+            height: 400px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                repeating-linear-gradient(0deg, transparent, transparent 30px, var(--border) 30px, var(--border) 31px),
+                repeating-linear-gradient(90deg, transparent, transparent 30px, var(--border) 30px, var(--border) 31px);
+            opacity: 0.2;
+        }
+
+        .map-content {
+            position: relative;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .map-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            opacity: 0.3;
+        }
+
+        .map-text {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .footer {
+            margin-top: 80px;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 968px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .offices-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-form {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">KAVACH</div>
+        </div>
+    </nav>
+
+    <main class="main">
+        <h1 class="page-title">CONTACT US</h1>
+        <p class="page-subtitle">Get in Touch with Our Team</p>
+
+        <div class="contact-grid">
+            <div class="contact-form">
+                <h2 class="form-title">Send Us a Message</h2>
+
+                <form onsubmit="event.preventDefault(); alert('Message sent successfully! We will respond within 24 hours.');">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Company</label>
+                        <input type="text" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Inquiry Type</label>
+                        <select class="form-select" required>
+                            <option value="">Select Type</option>
+                            <option value="sales">Enterprise Sales</option>
+                            <option value="government">Government & Defense</option>
+                            <option value="partnership">Partnership Opportunities</option>
+                            <option value="support">Technical Support</option>
+                            <option value="media">Media Inquiries</option>
+                            <option value="general">General Questions</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Subject</label>
+                        <input type="text" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-textarea" required placeholder="Tell us how we can help..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+
+            <div class="contact-info">
+                <div class="info-card">
+                    <svg class="info-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                    </svg>
+                    <h3 class="info-title">Email</h3>
+                    <div class="info-detail">
+                        <p><strong>General Inquiries:</strong><br>
+                        <a href="mailto:info@kavach.io">info@kavach.io</a></p>
+
+                        <p style="margin-top: 15px;"><strong>Enterprise Sales:</strong><br>
+                        <a href="mailto:sales@kavach.io">sales@kavach.io</a></p>
+
+                        <p style="margin-top: 15px;"><strong>Technical Support:</strong><br>
+                        <a href="mailto:support@kavach.io">support@kavach.io</a></p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <svg class="info-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                    </svg>
+                    <h3 class="info-title">Phone</h3>
+                    <div class="info-detail">
+                        <p><strong>Enterprise Sales:</strong><br>
+                        +1 (800) 528-2241</p>
+
+                        <p style="margin-top: 15px;"><strong>24/7 Security Hotline:</strong><br>
+                        +1 (800) KAVACH-1<br>
+                        <span style="font-size: 11px; color: var(--text-muted);">For active security incidents</span></p>
+
+                        <p style="margin-top: 15px;"><strong>International:</strong><br>
+                        +91 22 4567 8900 (India)<br>
+                        +44 20 7123 4567 (UK)</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <svg class="info-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                    </svg>
+                    <h3 class="info-title">Headquarters</h3>
+                    <div class="info-detail">
+                        <p><strong>KAVACH Technologies Pvt. Ltd.</strong><br>
+                        Tower A, 15th Floor<br>
+                        Cyber City, Hitech City<br>
+                        Hyderabad, Telangana 500081<br>
+                        India</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <svg class="info-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+                    </svg>
+                    <h3 class="info-title">Government & Defense</h3>
+                    <div class="info-detail">
+                        <p>For government contracts and defense partnerships:</p>
+                        <p style="margin-top: 10px;">
+                        <a href="mailto:government@kavach.io">government@kavach.io</a><br>
+                        +1 (800) 528-2241 ext. 300</p>
+                        <p style="margin-top: 15px; font-size: 12px; color: var(--text-muted);">
+                        Secure communications via encrypted channels available upon request. PGP key available.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="offices-section">
+            <h2 class="section-title">Global Offices</h2>
+
+            <div class="offices-grid">
+                <div class="office-card">
+                    <h3 class="office-location">Hyderabad, India</h3>
+                    <p class="office-address">
+                        Tower A, 15th Floor<br>
+                        Cyber City, Hitech City<br>
+                        Hyderabad, Telangana 500081<br>
+                        +91 22 4567 8900
+                    </p>
+                </div>
+
+                <div class="office-card">
+                    <h3 class="office-location">San Francisco, USA</h3>
+                    <p class="office-address">
+                        Suite 2400<br>
+                        101 California Street<br>
+                        San Francisco, CA 94111<br>
+                        +1 (415) 555-0100
+                    </p>
+                </div>
+
+                <div class="office-card">
+                    <h3 class="office-location">London, UK</h3>
+                    <p class="office-address">
+                        Level 12, The Shard<br>
+                        32 London Bridge Street<br>
+                        London SE1 9SG<br>
+                        +44 20 7123 4567
+                    </p>
+                </div>
+
+                <div class="office-card">
+                    <h3 class="office-location">Singapore</h3>
+                    <p class="office-address">
+                        #28-01 One Raffles Place<br>
+                        1 Raffles Place<br>
+                        Singapore 048616<br>
+                        +65 6789 1234
+                    </p>
+                </div>
+
+                <div class="office-card">
+                    <h3 class="office-location">Dubai, UAE</h3>
+                    <p class="office-address">
+                        Office 3401, Level 34<br>
+                        Emirates Towers<br>
+                        Sheikh Zayed Road<br>
+                        +971 4 567 8900
+                    </p>
+                </div>
+
+                <div class="office-card">
+                    <h3 class="office-location">Sydney, Australia</h3>
+                    <p class="office-address">
+                        Level 45<br>
+                        1 Macquarie Place<br>
+                        Sydney NSW 2000<br>
+                        +61 2 9876 5432
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="map-section">
+            <h2 class="section-title">Find Us</h2>
+            <div class="map-placeholder">
+                <div class="map-bg"></div>
+                <div class="map-content">
+                    <svg class="map-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                    </svg>
+                    <p class="map-text">Interactive Map</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: var(--bg-light); border: 1px solid var(--border); padding: 60px; text-align: center; margin-bottom: 80px;">
+            <h2 style="font-size: 28px; font-weight: 300; letter-spacing: 2px; margin-bottom: 20px;">
+                Secure Communication
+            </h2>
+            <p style="font-size: 14px; color: var(--text-muted); line-height: 1.8; margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                For sensitive security discussions or vulnerability reports, we offer encrypted communication channels. Contact us to establish secure communications via PGP encryption or dedicated secure portals.
+            </p>
+            <div style="display: flex; gap: 20px; justify-content: center;">
+                <button style="background: transparent; border: 1px solid var(--border); color: var(--text-primary); padding: 12px 28px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer;" onclick="alert('PGP Public Key:\n\nDownload available at:\nhttps://kavach.io/pgp-key.asc')">
+                    Download PGP Key
+                </button>
+                <button style="background: transparent; border: 1px solid var(--border); color: var(--text-primary); padding: 12px 28px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer;" onclick="alert('Security vulnerability reporting:\nsecurity@kavach.io\n\nResponsible disclosure program with bounty rewards available.')">
+                    Report Security Issue
+                </button>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2025 PROJECT KAVACH — CONTACT US
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAVACH - Settings</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #000000;
+            --bg-light: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-muted: #666666;
+            --border: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px 40px;
+        }
+
+        .nav-logo {
+            font-size: 11px;
+            letter-spacing: 4px;
+            font-weight: 500;
+        }
+
+        .main {
+            padding: 100px 40px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 60px;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            font-size: 13px;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-item:hover, .sidebar-item.active {
+            color: var(--text-primary);
+            padding-left: 20px;
+        }
+
+        .content {
+            padding-bottom: 80px;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            margin-bottom: 60px;
+        }
+
+        .section {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 14px 18px;
+            font-size: 13px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--text-primary);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-hint {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .toggle-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .toggle-info h4 {
+            font-size: 14px;
+            font-weight: 400;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .toggle-info p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .toggle {
+            width: 50px;
+            height: 26px;
+            background: var(--border);
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle.active {
+            background: var(--text-primary);
+        }
+
+        .toggle-slider {
+            width: 20px;
+            height: 20px;
+            background: var(--bg-dark);
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            transition: left 0.3s ease;
+        }
+
+        .toggle.active .toggle-slider {
+            left: 27px;
+        }
+
+        .btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 12px 28px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 15px;
+        }
+
+        .btn:hover {
+            background: var(--text-primary);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg-dark);
+        }
+
+        .btn-danger {
+            border-color: #ff3b3b;
+            color: #ff3b3b;
+        }
+
+        .btn-danger:hover {
+            background: #ff3b3b;
+            color: var(--text-primary);
+        }
+
+        .user-list {
+            margin-top: 20px;
+        }
+
+        .user-item {
+            display: grid;
+            grid-template-columns: 1fr 150px 100px;
+            gap: 20px;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid var(--border);
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .user-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .user-info h4 {
+            font-size: 14px;
+            font-weight: 400;
+            margin-bottom: 4px;
+        }
+
+        .user-info p {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .user-role {
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer {
+            margin-top: 80px;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 968px) {
+            .main {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .sidebar {
+                position: static;
+            }
+            .user-item {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">KAVACH</div>
+        </div>
+    </nav>
+
+    <main class="main">
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="sidebar-item active" onclick="showSection('users')">User Management</li>
+                <li class="sidebar-item" onclick="showSection('data')">Data Sources</li>
+                <li class="sidebar-item" onclick="showSection('alerts')">Alert Thresholds</li>
+                <li class="sidebar-item" onclick="showSection('ai')">AI Model Tuning</li>
+                <li class="sidebar-item" onclick="showSection('logging')">Logging & Retention</li>
+                <li class="sidebar-item" onclick="showSection('api')">API Keys</li>
+                <li class="sidebar-item" onclick="showSection('compliance')">Compliance & Audit</li>
+            </ul>
+        </aside>
+
+        <div class="content">
+            <h1 class="page-title">SETTINGS</h1>
+            <p class="page-subtitle">Platform Configuration & Management</p>
+
+            <div id="users-section">
+                <div class="section">
+                    <h2 class="section-title">User & Role Management (RBAC)</h2>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" onclick="alert('Add new user...')">+ Add User</button>
+                    </div>
+
+                    <div class="user-list">
+                        <div class="user-item">
+                            <div class="user-info">
+                                <h4>admin@company.com</h4>
+                                <p>Last active: 2 hours ago</p>
+                            </div>
+                            <div class="user-role">Administrator</div>
+                            <button class="btn" onclick="alert('Edit user...')">Edit</button>
+                        </div>
+
+                        <div class="user-item">
+                            <div class="user-info">
+                                <h4>analyst@company.com</h4>
+                                <p>Last active: 15 minutes ago</p>
+                            </div>
+                            <div class="user-role">SOC Analyst</div>
+                            <button class="btn" onclick="alert('Edit user...')">Edit</button>
+                        </div>
+
+                        <div class="user-item">
+                            <div class="user-info">
+                                <h4>investigator@company.com</h4>
+                                <p>Last active: 1 day ago</p>
+                            </div>
+                            <div class="user-role">Investigator</div>
+                            <button class="btn" onclick="alert('Edit user...')">Edit</button>
+                        </div>
+
+                        <div class="user-item">
+                            <div class="user-info">
+                                <h4>executive@company.com</h4>
+                                <p>Last active: 3 days ago</p>
+                            </div>
+                            <div class="user-role">Executive</div>
+                            <button class="btn" onclick="alert('Edit user...')">Edit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Data Ingestion Sources</h2>
+
+                    <div class="toggle-container">
+                        <div class="toggle-info">
+                            <h4>Network Firewall Logs</h4>
+                            <p>Syslog feed from Palo Alto Networks</p>
+                        </div>
+                        <div class="toggle active" onclick="this.classList.toggle('active')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="toggle-container">
+                        <div class="toggle-info">
+                            <h4>Endpoint Detection & Response</h4>
+                            <p>CrowdStrike Falcon API integration</p>
+                        </div>
+                        <div class="toggle active" onclick="this.classList.toggle('active')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="toggle-container">
+                        <div class="toggle-info">
+                            <h4>Active Directory Logs</h4>
+                            <p>Windows Event Forwarding</p>
+                        </div>
+                        <div class="toggle active" onclick="this.classList.toggle('active')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="toggle-container">
+                        <div class="toggle-info">
+                            <h4>Cloud Infrastructure Logs</h4>
+                            <p>AWS CloudTrail & GuardDuty</p>
+                        </div>
+                        <div class="toggle" onclick="this.classList.toggle('active')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 30px;">
+                        <button class="btn btn-primary" onclick="alert('Add new data source...')">+ Add Data Source</button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Alert Thresholds</h2>
+
+                    <div class="form-group">
+                        <label class="form-label">Critical Alert Threshold</label>
+                        <input type="number" class="form-input" value="95" min="0" max="100">
+                        <p class="form-hint">Confidence score required to trigger critical alerts (0-100)</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">High Alert Threshold</label>
+                        <input type="number" class="form-input" value="75" min="0" max="100">
+                        <p class="form-hint">Confidence score required to trigger high priority alerts</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Alert Notification Email</label>
+                        <input type="email" class="form-input" value="soc@company.com">
+                        <p class="form-hint">Primary email for real-time alert notifications</p>
+                    </div>
+
+                    <div class="toggle-container">
+                        <div class="toggle-info">
+                            <h4>Real-Time Notifications</h4>
+                            <p>Send instant alerts for critical threats</p>
+                        </div>
+                        <div class="toggle active" onclick="this.classList.toggle('active')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 30px;">
+                        <button class="btn btn-primary" onclick="alert('Saving alert settings...')">Save Changes</button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">AI Model Tuning</h2>
+
+                    <div class="form-group">
+                        <label class="form-label">Correlation Sensitivity</label>
+                        <select class="form-select">
+                            <option>Low (Fewer false positives)</option>
+                            <option selected>Medium (Balanced)</option>
+                            <option>High (Maximum detection)</option>
+                        </select>
+                        <p class="form-hint">Adjust AI correlation engine sensitivity</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Learning Mode</label>
+                        <select class="form-select">
+                            <option>Static (No adaptation)</option>
+                            <option selected>Supervised (With analyst feedback)</option>
+                            <option>Continuous (Automatic learning)</option>
+                        </select>
+                        <p class="form-hint">How the AI model adapts to your environment</p>
+                    </div>
+
+                    <div class="toggle-container">
+                        <div class="toggle-info">
+                            <h4>Behavioral Analytics</h4>
+                            <p>Use machine learning for anomaly detection</p>
+                        </div>
+                        <div class="toggle active" onclick="this.classList.toggle('active')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 30px;">
+                        <button class="btn btn-primary" onclick="alert('Saving AI settings...')">Save Changes</button>
+                        <button class="btn" onclick="alert('Resetting to defaults...')">Reset to Defaults</button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Logging & Retention Policies</h2>
+
+                    <div class="form-group">
+                        <label class="form-label">Log Retention Period</label>
+                        <select class="form-select">
+                            <option>30 days</option>
+                            <option>90 days</option>
+                            <option selected>180 days</option>
+                            <option>1 year</option>
+                            <option>2 years</option>
+                            <option>Indefinite</option>
+                        </select>
+                        <p class="form-hint">How long to retain raw log data</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Archive Storage Location</label>
+                        <input type="text" class="form-input" value="s3://kavach-archive/logs/" readonly>
+                        <p class="form-hint">Cloud storage for archived logs</p>
+                    </div>
+
+                    <div class="toggle-container">
+                        <div class="toggle-info">
+                            <h4>Automatic Archive</h4>
+                            <p>Move old logs to cold storage automatically</p>
+                        </div>
+                        <div class="toggle active" onclick="this.classList.toggle('active')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="toggle-container">
+                        <div class="toggle-info">
+                            <h4>Audit Trail Logging</h4>
+                            <p>Log all user actions and system changes</p>
+                        </div>
+                        <div class="toggle active" onclick="this.classList.toggle('active')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 30px;">
+                        <button class="btn btn-primary" onclick="alert('Saving retention settings...')">Save Changes</button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">API Keys & Integrations</h2>
+
+                    <div class="form-group">
+                        <label class="form-label">Primary API Key</label>
+                        <input type="text" class="form-input" value="kvch_live_aBcD3FgH1JkLmN0pQrStUvWxYz" readonly>
+                        <p class="form-hint">Use this key for API authentication</p>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn" onclick="alert('Regenerating API key...')">Regenerate Key</button>
+                        <button class="btn" onclick="alert('Copying to clipboard...')">Copy Key</button>
+                    </div>
+
+                    <div class="toggle-container">
+                        <div class="toggle-info">
+                            <h4>Webhook Notifications</h4>
+                            <p>POST alerts to external endpoints</p>
+                        </div>
+                        <div class="toggle" onclick="this.classList.toggle('active')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Webhook URL</label>
+                        <input type="url" class="form-input" placeholder="https://your-server.com/webhook">
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" onclick="alert('Testing webhook...')">Test Webhook</button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Compliance & Audit Settings</h2>
+
+                    <div class="toggle-container">
+                        <div class="toggle-info">
+                            <h4>GDPR Compliance Mode</h4>
+                            <p>Enable data protection regulations</p>
+                        </div>
+                        <div class="toggle active" onclick="this.classList.toggle('active')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="toggle-container">
+                        <div class="toggle-info">
+                            <h4>NIST CSF Reporting</h4>
+                            <p>Generate NIST Cybersecurity Framework reports</p>
+                        </div>
+                        <div class="toggle active" onclick="this.classList.toggle('active')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="toggle-container">
+                        <div class="toggle-info">
+                            <h4>ISO 27001 Audit Trail</h4>
+                            <p>Maintain compliance audit logs</p>
+                        </div>
+                        <div class="toggle" onclick="this.classList.toggle('active')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Data Residency</label>
+                        <select class="form-select">
+                            <option>United States</option>
+                            <option>European Union</option>
+                            <option selected>India</option>
+                            <option>Singapore</option>
+                        </select>
+                        <p class="form-hint">Geographic location for data storage</p>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 30px;">
+                        <button class="btn btn-primary" onclick="alert('Saving compliance settings...')">Save Changes</button>
+                        <button class="btn" onclick="alert('Exporting audit log...')">Export Audit Log</button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Danger Zone</h2>
+
+                    <div style="padding: 20px; border: 1px solid #ff3b3b; margin-bottom: 20px;">
+                        <h4 style="color: #ff3b3b; margin-bottom: 10px;">Reset All Settings</h4>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">
+                            This will restore all settings to factory defaults. This action cannot be undone.
+                        </p>
+                        <button class="btn btn-danger" onclick="alert('Are you sure? This will reset everything!')">Reset Platform</button>
+                    </div>
+
+                    <div style="padding: 20px; border: 1px solid #ff3b3b;">
+                        <h4 style="color: #ff3b3b; margin-bottom: 10px;">Delete All Data</h4>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">
+                            Permanently delete all logs, reports, and configuration. This action is irreversible.
+                        </p>
+                        <button class="btn btn-danger" onclick="alert('Are you sure? This will delete EVERYTHING!')">Delete All Data</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                © 2025 PROJECT KAVACH — PLATFORM SETTINGS
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showSection(section) {
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            alert(`Loading ${section} settings...`);
+        }
+    </script>
+</body>
+</html>

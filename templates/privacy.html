@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAVACH - Privacy Policy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #000000;
+            --bg-light: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-muted: #666666;
+            --border: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px 40px;
+        }
+
+        .nav-logo {
+            font-size: 11px;
+            letter-spacing: 4px;
+            font-weight: 500;
+        }
+
+        .main {
+            padding: 100px 40px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            margin-bottom: 60px;
+        }
+
+        .update-notice {
+            background: rgba(255, 184, 0, 0.05);
+            border: 1px solid rgba(255, 184, 0, 0.3);
+            padding: 25px;
+            margin-bottom: 60px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .update-notice strong {
+            color: #ffb800;
+        }
+
+        .content-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-text {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 2;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin: 30px 0 15px;
+        }
+
+        .list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .list li {
+            padding: 12px 0 12px 30px;
+            position: relative;
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--text-primary);
+        }
+
+        .highlight-box {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .highlight-title {
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+
+        .highlight-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        th {
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .footer {
+            margin-top: 80px;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">KAVACH</div>
+        </div>
+    </nav>
+
+    <main class="main">
+        <h1 class="page-title">PRIVACY POLICY</h1>
+        <p class="page-subtitle">Your Data, Your Trust</p>
+
+        <div class="update-notice">
+            <strong>Last Updated:</strong> January 1, 2025<br>
+            <strong>Effective Date:</strong> January 1, 2025<br><br>
+            This Privacy Policy describes how KAVACH Technologies Pvt. Ltd. collects, uses, and protects your information when you use our platform and services.
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">1. Information We Collect</h2>
+
+            <p class="section-text">
+                KAVACH is a cybersecurity platform designed to analyze security events and detect threats. In the course of providing our services, we collect and process various types of information.
+            </p>
+
+            <h3 class="section-subtitle">1.1 Security Log Data</h3>
+            <p class="section-text">
+                When you use KAVACH to monitor your infrastructure, we collect and process security logs and events from your systems, including:
+            </p>
+            <ul class="list">
+                <li>Network traffic logs and firewall events</li>
+                <li>Endpoint security events and process execution data</li>
+                <li>Authentication attempts and access control logs</li>
+                <li>System events, errors, and anomalies</li>
+                <li>Application logs and API calls</li>
+                <li>Cloud infrastructure logs and configurations</li>
+            </ul>
+
+            <h3 class="section-subtitle">1.2 Account Information</h3>
+            <p class="section-text">
+                To create and manage your KAVACH account, we collect:
+            </p>
+            <ul class="list">
+                <li>Name, email address, and contact information</li>
+                <li>Organization name and business details</li>
+                <li>User role and permissions within your organization</li>
+                <li>Account preferences and configuration settings</li>
+            </ul>
+
+            <h3 class="section-subtitle">1.3 Usage Information</h3>
+            <p class="section-text">
+                We automatically collect information about how you use the KAVACH platform:
+            </p>
+            <ul class="list">
+                <li>Platform feature usage and interaction patterns</li>
+                <li>Query history and search patterns</li>
+                <li>Report generation requests and downloads</li>
+                <li>Dashboard views and customization</li>
+                <li>API usage and integration activity</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">2. How We Use Your Information</h2>
+
+            <h3 class="section-subtitle">2.1 Service Provision</h3>
+            <p class="section-text">
+                Security log data is processed by our AI correlation engine to detect threats, reconstruct attack kill chains, and generate alerts and reports. This is the core function of the KAVACH platform.
+            </p>
+
+            <h3 class="section-subtitle">2.2 Platform Improvement</h3>
+            <p class="section-text">
+                We use aggregated, anonymized data to improve our AI models, enhance detection accuracy, and develop new features. Individual customer data is never shared or used for training without explicit consent.
+            </p>
+
+            <h3 class="section-subtitle">2.3 Security & Fraud Prevention</h3>
+            <p class="section-text">
+                We monitor our own systems for security threats, unauthorized access attempts, and fraudulent activity to protect both KAVACH and our customers.
+            </p>
+
+            <div class="highlight-box">
+                <div class="highlight-title">AI Model Training Policy</div>
+                <div class="highlight-text">
+                    KAVACH does NOT use your specific security data to train AI models that serve other customers. Each customer's data remains isolated. We may use aggregated, anonymized patterns (with no customer-identifiable information) to improve general detection capabilities, but only with appropriate safeguards and transparency.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">3. Data Retention & Storage</h2>
+
+            <h3 class="section-subtitle">3.1 Retention Periods</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data Type</th>
+                            <th>Default Retention</th>
+                            <th>Customer Control</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Security Event Logs</td>
+                            <td>180 days</td>
+                            <td>Configurable (30 days to indefinite)</td>
+                        </tr>
+                        <tr>
+                            <td>Incident Reports</td>
+                            <td>2 years</td>
+                            <td>Deletable by customer</td>
+                        </tr>
+                        <tr>
+                            <td>Account Information</td>
+                            <td>Active account + 30 days</td>
+                            <td>Deletable upon account closure</td>
+                        </tr>
+                        <tr>
+                            <td>Audit Trails</td>
+                            <td>7 years</td>
+                            <td>Required for compliance</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="section-subtitle">3.2 Data Residency</h3>
+            <p class="section-text">
+                KAVACH operates regional data centers to ensure data residency compliance. Customers can select their preferred data storage region:
+            </p>
+            <ul class="list">
+                <li><strong>India:</strong> Mumbai & Hyderabad data centers</li>
+                <li><strong>United States:</strong> Northern California & Northern Virginia</li>
+                <li><strong>European Union:</strong> Frankfurt & Dublin (GDPR-compliant)</li>
+                <li><strong>Singapore:</strong> Asia-Pacific regional hub</li>
+            </ul>
+
+            <p class="section-text">
+                Data is stored in encrypted form at rest using AES-256 encryption and in transit using TLS 1.3. Encryption keys are managed using hardware security modules (HSMs).
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">4. Data Sharing & Disclosure</h2>
+
+            <h3 class="section-subtitle">4.1 No Data Resale</h3>
+            <div class="highlight-box">
+                <div class="highlight-title">Ironclad Commitment</div>
+                <div class="highlight-text">
+                    KAVACH does NOT sell, rent, or trade your security data to third parties. Your data is yours, and we treat it with the highest level of confidentiality and protection.
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">4.2 Limited Disclosure</h3>
+            <p class="section-text">
+                We may disclose information only in the following limited circumstances:
+            </p>
+            <ul class="list">
+                <li><strong>With Your Consent:</strong> When you explicitly authorize data sharing</li>
+                <li><strong>Service Providers:</strong> Third-party vendors who assist in platform operations (cloud hosting, support tools) under strict confidentiality agreements</li>
+                <li><strong>Legal Compliance:</strong> When required by law, court order, or government request</li>
+                <li><strong>Safety & Security:</strong> To prevent imminent harm, investigate fraud, or protect rights</li>
+            </ul>
+
+            <h3 class="section-subtitle">4.3 Anonymized Threat Intelligence</h3>
+            <p class="section-text">
+                With appropriate safeguards, we may share anonymized indicators of compromise (IOCs) and attack patterns with the security community to improve collective defense. This sharing is strictly anonymized with no customer-identifiable information.
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">5. User Rights & Control</h2>
+
+            <p class="section-text">
+                You have comprehensive rights regarding your data:
+            </p>
+
+            <ul class="list">
+                <li><strong>Access:</strong> Request a copy of all data we hold about you</li>
+                <li><strong>Correction:</strong> Update or correct inaccurate information</li>
+                <li><strong>Deletion:</strong> Request deletion of your data (subject to legal retention requirements)</li>
+                <li><strong>Export:</strong> Export your data in machine-readable formats</li>
+                <li><strong>Restriction:</strong> Limit how we process your data</li>
+                <li><strong>Objection:</strong> Object to certain data processing activities</li>
+                <li><strong>Portability:</strong> Transfer your data to another service</li>
+            </ul>
+
+            <p class="section-text">
+                To exercise these rights, contact us at <strong>privacy@kavach.io</strong>. We will respond within 30 days (or as required by applicable law).
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">6. Compliance & Certifications</h2>
+
+            <p class="section-text">
+                KAVACH maintains compliance with major data protection regulations and standards:
+            </p>
+
+            <h3 class="section-subtitle">6.1 GDPR (General Data Protection Regulation)</h3>
+            <p class="section-text">
+                For European customers, we comply with GDPR requirements including lawful data processing, data minimization, purpose limitation, and data subject rights.
+            </p>
+
+            <h3 class="section-subtitle">6.2 DPDP Act (India Digital Personal Data Protection Act)</h3>
+            <p class="section-text">
+                We comply with India's data protection framework, ensuring proper consent mechanisms, data localization, and individual rights protection.
+            </p>
+
+            <h3 class="section-subtitle">6.3 SOC 2 Type II</h3>
+            <p class="section-text">
+                KAVACH maintains SOC 2 Type II certification, demonstrating our commitment to security, availability, processing integrity, confidentiality, and privacy.
+            </p>
+
+            <h3 class="section-subtitle">6.4 ISO 27001</h3>
+            <p class="section-text">
+                Our information security management system is ISO 27001 certified, ensuring comprehensive security controls.
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">7. Cookies & Tracking</h2>
+
+            <p class="section-text">
+                KAVACH uses cookies and similar technologies for platform functionality and analytics:
+            </p>
+
+            <ul class="list">
+                <li><strong>Essential Cookies:</strong> Required for platform operation (authentication, session management)</li>
+                <li><strong>Analytics Cookies:</strong> Help us understand platform usage and improve features</li>
+                <li><strong>Preference Cookies:</strong> Remember your settings and customizations</li>
+            </ul>
+
+            <p class="section-text">
+                You can control cookie preferences through your browser settings. Disabling essential cookies may impact platform functionality.
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">8. Security Measures</h2>
+
+            <p class="section-text">
+                We implement industry-leading security measures to protect your data:
+            </p>
+
+            <ul class="list">
+                <li>End-to-end encryption (AES-256 at rest, TLS 1.3 in transit)</li>
+                <li>Multi-factor authentication (MFA) for all accounts</li>
+                <li>Role-based access control (RBAC) and principle of least privilege</li>
+                <li>Regular security audits and penetration testing</li>
+                <li>24/7 security monitoring and incident response</li>
+                <li>Data backup and disaster recovery procedures</li>
+                <li>Employee security training and background checks</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">9. International Data Transfers</h2>
+
+            <p class="section-text">
+                When data is transferred across borders, we ensure appropriate safeguards are in place:
+            </p>
+
+            <ul class="list">
+                <li>Standard Contractual Clauses (SCCs) for EU data transfers</li>
+                <li>Adequacy decisions where applicable</li>
+                <li>Data localization for regions with strict requirements</li>
+                <li>Encryption during all international transfers</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">10. Children's Privacy</h2>
+
+            <p class="section-text">
+                KAVACH is an enterprise security platform not intended for use by individuals under 18 years of age. We do not knowingly collect information from children.
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">11. Changes to This Policy</h2>
+
+            <p class="section-text">
+                We may update this Privacy Policy periodically to reflect changes in our practices or legal requirements. We will notify users of material changes via:
+            </p>
+
+            <ul class="list">
+                <li>Email notification to account administrators</li>
+                <li>In-platform notifications</li>
+                <li>Updates on our website with revision date</li>
+            </ul>
+
+            <p class="section-text">
+                Continued use of KAVACH after policy updates constitutes acceptance of the revised terms.
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">12. Contact Us</h2>
+
+            <p class="section-text">
+                For privacy-related questions, concerns, or to exercise your data rights, contact us:
+            </p>
+
+            <div class="highlight-box">
+                <div class="highlight-title">Privacy Contact</div>
+                <div class="highlight-text">
+                    <strong>Email:</strong> privacy@kavach.io<br>
+                    <strong>Data Protection Officer:</strong> dpo@kavach.io<br>
+                    <strong>Postal Address:</strong><br>
+                    KAVACH Technologies Pvt. Ltd.<br>
+                    Attn: Privacy Officer<br>
+                    Tower A, 15th Floor, Cyber City<br>
+                    Hyderabad, Telangana 500081, India<br><br>
+                    <strong>Response Time:</strong> We respond to all privacy inquiries within 30 days.
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2025 PROJECT KAVACH — PRIVACY POLICY
+        </div>
+    </main>
+</body>
+</html>

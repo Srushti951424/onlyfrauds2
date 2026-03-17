@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAVACH - API Reference</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #000000;
+            --bg-light: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-muted: #666666;
+            --border: #1a1a1a;
+            --green: #00ff88;
+            --blue: #0099ff;
+            --yellow: #ffb800;
+            --red: #ff3b3b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px 40px;
+        }
+
+        .nav-logo {
+            font-size: 11px;
+            letter-spacing: 4px;
+            font-weight: 500;
+        }
+
+        .main {
+            padding: 100px 40px 40px;
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 60px;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .sidebar-section {
+            margin-bottom: 35px;
+        }
+
+        .sidebar-title {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            padding: 10px 0;
+            font-size: 13px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 2px solid transparent;
+            padding-left: 15px;
+        }
+
+        .sidebar-item:hover, .sidebar-item.active {
+            color: var(--text-primary);
+            border-left-color: var(--text-primary);
+        }
+
+        .content {
+            padding-bottom: 80px;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            margin-bottom: 60px;
+        }
+
+        .api-section {
+            margin-bottom: 80px;
+        }
+
+        .api-title {
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .api-intro {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.9;
+            margin-bottom: 30px;
+        }
+
+        .endpoint-card {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .endpoint-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .method {
+            padding: 6px 14px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            font-weight: 500;
+            border: 1px solid;
+        }
+
+        .method-get { border-color: var(--green); color: var(--green); }
+        .method-post { border-color: var(--blue); color: var(--blue); }
+        .method-put { border-color: var(--yellow); color: var(--yellow); }
+        .method-delete { border-color: var(--red); color: var(--red); }
+
+        .endpoint-path {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .endpoint-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .param-section {
+            margin-top: 25px;
+        }
+
+        .param-title {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .param-item {
+            padding: 15px;
+            border-left: 2px solid var(--border);
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+
+        .param-name {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .param-type {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .param-required {
+            color: var(--red);
+            font-size: 10px;
+            margin-left: 10px;
+        }
+
+        .param-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .code-block {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            padding: 25px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+
+        .code-comment { color: var(--text-muted); }
+        .code-string { color: var(--green); }
+        .code-number { color: var(--blue); }
+        .code-key { color: var(--yellow); }
+
+        .response-section {
+            margin-top: 25px;
+        }
+
+        .response-code {
+            display: inline-block;
+            padding: 4px 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            border: 1px solid var(--border);
+            margin-right: 10px;
+        }
+
+        .response-code-200 { border-color: var(--green); color: var(--green); }
+        .response-code-400 { border-color: var(--yellow); color: var(--yellow); }
+        .response-code-401 { border-color: var(--red); color: var(--red); }
+        .response-code-500 { border-color: var(--red); color: var(--red); }
+
+        .info-box {
+            background: rgba(0, 153, 255, 0.05);
+            border: 1px solid rgba(0, 153, 255, 0.3);
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .info-box-title {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 12px;
+        }
+
+        .info-box-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .rate-limit-table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+
+        .rate-limit-table th,
+        .rate-limit-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        .rate-limit-table th {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .footer {
+            margin-top: 80px;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 968px) {
+            .main {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .sidebar {
+                position: static;
+            }
+            .endpoint-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">KAVACH</div>
+        </div>
+    </nav>
+
+    <main class="main">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Getting Started</div>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item active">Authentication</li>
+                    <li class="sidebar-item">Rate Limits</li>
+                    <li class="sidebar-item">Error Handling</li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Events</div>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item">Ingest Events</li>
+                    <li class="sidebar-item">Query Events</li>
+                    <li class="sidebar-item">Search Events</li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Incidents</div>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item">List Incidents</li>
+                    <li class="sidebar-item">Get Incident</li>
+                    <li class="sidebar-item">Update Incident</li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Reports</div>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item">Generate Report</li>
+                    <li class="sidebar-item">Get Report</li>
+                    <li class="sidebar-item">List Reports</li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Webhooks</div>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item">Configure Webhooks</li>
+                    <li class="sidebar-item">Test Webhooks</li>
+                </ul>
+            </div>
+        </aside>
+
+        <div class="content">
+            <h1 class="page-title">API REFERENCE</h1>
+            <p class="page-subtitle">RESTful API for KAVACH Platform Integration</p>
+
+            <div class="api-section">
+                <h2 class="api-title">Authentication</h2>
+
+                <p class="api-intro">
+                    The KAVACH API uses API keys for authentication. Include your API key in the Authorization header of all requests. API keys can be generated and managed in the Settings > API Keys section of the platform.
+                </p>
+
+                <div class="code-block">
+<span class="code-comment"># Example: Authentication Header</span>
+curl -X GET https://api.kavach.io/v1/incidents \
+  -H <span class="code-string">"Authorization: Bearer kvch_live_aBcD3FgH1JkLmN0pQrStUvWxYz"</span> \
+  -H <span class="code-string">"Content-Type: application/json"</span>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">Security Best Practices</div>
+                    <div class="info-box-text">
+                        Never expose API keys in client-side code or public repositories. Rotate keys regularly and immediately revoke any compromised keys. Use environment variables or secure key management systems to store API credentials.
+                    </div>
+                </div>
+
+                <h3 style="font-size: 18px; margin: 40px 0 20px; font-weight: 300;">Rate Limits</h3>
+
+                <table class="rate-limit-table">
+                    <thead>
+                        <tr>
+                            <th>Endpoint Type</th>
+                            <th>Rate Limit</th>
+                            <th>Window</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Event Ingestion</td>
+                            <td>10,000 requests</td>
+                            <td>Per minute</td>
+                        </tr>
+                        <tr>
+                            <td>Query & Search</td>
+                            <td>1,000 requests</td>
+                            <td>Per minute</td>
+                        </tr>
+                        <tr>
+                            <td>Incident Management</td>
+                            <td>500 requests</td>
+                            <td>Per minute</td>
+                        </tr>
+                        <tr>
+                            <td>Report Generation</td>
+                            <td>100 requests</td>
+                            <td>Per hour</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="api-intro">
+                    Rate limit information is included in response headers: X-RateLimit-Limit, X-RateLimit-Remaining, and X-RateLimit-Reset.
+                </p>
+            </div>
+
+            <div class="api-section">
+                <h2 class="api-title">Event Ingestion API</h2>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method method-post">POST</span>
+                        <span class="endpoint-path">/v1/events/ingest</span>
+                    </div>
+                    <p class="endpoint-desc">
+                        Ingest security events into KAVACH for processing and correlation. Supports batch ingestion of up to 1,000 events per request.
+                    </p>
+
+                    <div class="param-section">
+                        <div class="param-title">Request Body Parameters</div>
+
+                        <div class="param-item">
+                            <div class="param-name">
+                                events
+                                <span class="param-type">array</span>
+                                <span class="param-required">required</span>
+                            </div>
+                            <p class="param-desc">Array of event objects to ingest</p>
+                        </div>
+
+                        <div class="param-item">
+                            <div class="param-name">
+                                timestamp
+                                <span class="param-type">string (ISO 8601)</span>
+                                <span class="param-required">required</span>
+                            </div>
+                            <p class="param-desc">Event timestamp in ISO 8601 format</p>
+                        </div>
+
+                        <div class="param-item">
+                            <div class="param-name">
+                                source
+                                <span class="param-type">string</span>
+                                <span class="param-required">required</span>
+                            </div>
+                            <p class="param-desc">Data source identifier (e.g., "firewall", "endpoint-edr")</p>
+                        </div>
+
+                        <div class="param-item">
+                            <div class="param-name">
+                                event_type
+                                <span class="param-type">string</span>
+                                <span class="param-required">required</span>
+                            </div>
+                            <p class="param-desc">Type of event (e.g., "network", "process", "authentication")</p>
+                        </div>
+
+                        <div class="param-item">
+                            <div class="param-name">
+                                severity
+                                <span class="param-type">string</span>
+                            </div>
+                            <p class="param-desc">Event severity: "critical", "high", "medium", "low", "info"</p>
+                        </div>
+
+                        <div class="param-item">
+                            <div class="param-name">
+                                metadata
+                                <span class="param-type">object</span>
+                            </div>
+                            <p class="param-desc">Additional event metadata as key-value pairs</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+<span class="code-comment">// Example Request</span>
+{
+  <span class="code-key">"events"</span>: [
+    {
+      <span class="code-key">"timestamp"</span>: <span class="code-string">"2025-01-02T14:32:18Z"</span>,
+      <span class="code-key">"source"</span>: <span class="code-string">"palo-alto-firewall"</span>,
+      <span class="code-key">"event_type"</span>: <span class="code-string">"network"</span>,
+      <span class="code-key">"severity"</span>: <span class="code-string">"high"</span>,
+      <span class="code-key">"metadata"</span>: {
+        <span class="code-key">"src_ip"</span>: <span class="code-string">"192.168.1.100"</span>,
+        <span class="code-key">"dst_ip"</span>: <span class="code-string">"185.220.101.42"</span>,
+        <span class="code-key">"dst_port"</span>: <span class="code-number">443</span>,
+        <span class="code-key">"action"</span>: <span class="code-string">"allow"</span>
+      }
+    }
+  ]
+}
+                    </div>
+
+                    <div class="response-section">
+                        <div class="param-title">Responses</div>
+                        <p style="margin: 15px 0;">
+                            <span class="response-code response-code-200">200</span>
+                            <span style="font-size: 13px; color: var(--text-muted);">Events successfully ingested</span>
+                        </p>
+                        <p style="margin: 15px 0;">
+                            <span class="response-code response-code-400">400</span>
+                            <span style="font-size: 13px; color: var(--text-muted);">Invalid request format or missing required fields</span>
+                        </p>
+                        <p style="margin: 15px 0;">
+                            <span class="response-code response-code-401">401</span>
+                            <span style="font-size: 13px; color: var(--text-muted);">Authentication failed</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method method-get">GET</span>
+                        <span class="endpoint-path">/v1/events/search</span>
+                    </div>
+                    <p class="endpoint-desc">
+                        Search and query ingested events using filters, time ranges, and field matching.
+                    </p>
+
+                    <div class="param-section">
+                        <div class="param-title">Query Parameters</div>
+
+                        <div class="param-item">
+                            <div class="param-name">
+                                query
+                                <span class="param-type">string</span>
+                            </div>
+                            <p class="param-desc">Search query string (supports field:value syntax)</p>
+                        </div>
+
+                        <div class="param-item">
+                            <div class="param-name">
+                                start_time
+                                <span class="param-type">string (ISO 8601)</span>
+                            </div>
+                            <p class="param-desc">Start of time range for search</p>
+                        </div>
+
+                        <div class="param-item">
+                            <div class="param-name">
+                                end_time
+                                <span class="param-type">string (ISO 8601)</span>
+                            </div>
+                            <p class="param-desc">End of time range for search</p>
+                        </div>
+
+                        <div class="param-item">
+                            <div class="param-name">
+                                limit
+                                <span class="param-type">integer</span>
+                            </div>
+                            <p class="param-desc">Maximum number of results (default: 100, max: 1000)</p>
+                        </div>
+
+                        <div class="param-item">
+                            <div class="param-name">
+                                offset
+                                <span class="param-type">integer</span>
+                            </div>
+                            <p class="param-desc">Pagination offset</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+<span class="code-comment"># Example: Search for failed login attempts</span>
+GET /v1/events/search?query=event_type:authentication%20AND%20action:failed&limit=50
+                    </div>
+                </div>
+            </div>
+
+            <div class="api-section">
+                <h2 class="api-title">Incident Management API</h2>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method method-get">GET</span>
+                        <span class="endpoint-path">/v1/incidents</span>
+                    </div>
+                    <p class="endpoint-desc">
+                        Retrieve a list of detected incidents with optional filtering by severity, status, and time range.
+                    </p>
+
+                    <div class="code-block">
+<span class="code-comment">// Example Response</span>
+{
+  <span class="code-key">"incidents"</span>: [
+    {
+      <span class="code-key">"id"</span>: <span class="code-string">"inc_2025_001"</span>,
+      <span class="code-key">"title"</span>: <span class="code-string">"Lateral Movement Detected"</span>,
+      <span class="code-key">"severity"</span>: <span class="code-string">"critical"</span>,
+      <span class="code-key">"status"</span>: <span class="code-string">"active"</span>,
+      <span class="code-key">"created_at"</span>: <span class="code-string">"2025-01-02T14:15:00Z"</span>,
+      <span class="code-key">"affected_assets"</span>: [<span class="code-string">"WS-042"</span>, <span class="code-string">"DB-SERVER-03"</span>],
+      <span class="code-key">"confidence_score"</span>: <span class="code-number">0.96</span>
+    }
+  ],
+  <span class="code-key">"total"</span>: <span class="code-number">23</span>,
+  <span class="code-key">"page"</span>: <span class="code-number">1</span>
+}
+                    </div>
+                </div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method method-get">GET</span>
+                        <span class="endpoint-path">/v1/incidents/{incident_id}</span>
+                    </div>
+                    <p class="endpoint-desc">
+                        Retrieve detailed information about a specific incident, including complete kill-chain reconstruction and timeline.
+                    </p>
+                </div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method method-put">PUT</span>
+                        <span class="endpoint-path">/v1/incidents/{incident_id}</span>
+                    </div>
+                    <p class="endpoint-desc">
+                        Update incident status, add analyst notes, or modify incident metadata.
+                    </p>
+
+                    <div class="code-block">
+<span class="code-comment">// Example: Update incident status</span>
+{
+  <span class="code-key">"status"</span>: <span class="code-string">"resolved"</span>,
+  <span class="code-key">"notes"</span>: <span class="code-string">"Threat contained and remediated. Affected systems rebuilt."</span>
+}
+                    </div>
+                </div>
+            </div>
+
+            <div class="api-section">
+                <h2 class="api-title">Report Generation API</h2>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method method-post">POST</span>
+                        <span class="endpoint-path">/v1/reports/generate</span>
+                    </div>
+                    <p class="endpoint-desc">
+                        Generate a forensic report for a specific incident or time range. Reports are generated asynchronously and can be retrieved using the report ID.
+                    </p>
+
+                    <div class="param-section">
+                        <div class="param-title">Request Body Parameters</div>
+
+                        <div class="param-item">
+                            <div class="param-name">
+                                incident_id
+                                <span class="param-type">string</span>
+                            </div>
+                            <p class="param-desc">Incident ID to generate report for</p>
+                        </div>
+
+                        <div class="param-item">
+                            <div class="param-name">
+                                format
+                                <span class="param-type">string</span>
+                            </div>
+                            <p class="param-desc">Report format: "pdf", "json", "html" (default: "pdf")</p>
+                        </div>
+
+                        <div class="param-item">
+                            <div class="param-name">
+                                template
+                                <span class="param-type">string</span>
+                            </div>
+                            <p class="param-desc">Report template: "forensic", "executive", "technical", "compliance"</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+<span class="code-comment">// Example Response</span>
+{
+  <span class="code-key">"report_id"</span>: <span class="code-string">"rpt_abc123"</span>,
+  <span class="code-key">"status"</span>: <span class="code-string">"generating"</span>,
+  <span class="code-key">"estimated_completion"</span>: <span class="code-string">"2025-01-02T14:45:00Z"</span>
+}
+                    </div>
+                </div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method method-get">GET</span>
+                        <span class="endpoint-path">/v1/reports/{report_id}</span>
+                    </div>
+                    <p class="endpoint-desc">
+                        Retrieve a generated report by its ID. Returns report metadata and download URL when generation is complete.
+                    </p>
+                </div>
+            </div>
+
+            <div class="api-section">
+                <h2 class="api-title">Webhooks</h2>
+
+                <p class="api-intro">
+                    Configure webhooks to receive real-time notifications when incidents are detected or status changes occur. KAVACH will POST JSON payloads to your configured endpoint.
+                </p>
+
+                <div class="code-block">
+<span class="code-comment">// Webhook Payload Example</span>
+{
+  <span class="code-key">"event"</span>: <span class="code-string">"incident.created"</span>,
+  <span class="code-key">"timestamp"</span>: <span class="code-string">"2025-01-02T14:15:00Z"</span>,
+  <span class="code-key">"data"</span>: {
+    <span class="code-key">"incident_id"</span>: <span class="code-string">"inc_2025_001"</span>,
+    <span class="code-key">"severity"</span>: <span class="code-string">"critical"</span>,
+    <span class="code-key">"title"</span>: <span class="code-string">"Lateral Movement Detected"</span>
+  }
+}
+                </div>
+
+                <p class="api-intro">
+                    Webhook endpoints must respond with HTTP 200 within 10 seconds. Failed deliveries will be retried with exponential backoff.
+                </p>
+            </div>
+
+            <div class="footer">
+                © 2025 PROJECT KAVACH — API DOCUMENTATION
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAVACH - Authentication</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #000000;
+            --bg-light: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-muted: #666666;
+            --border: #1a1a1a;
+            --accent: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .auth-bg {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.02) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.01) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .auth-grid {
+            position: fixed;
+            inset: 0;
+            background:
+                repeating-linear-gradient(0deg, transparent, transparent 2px, var(--border) 2px, var(--border) 3px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, var(--border) 2px, var(--border) 3px);
+            background-size: 80px 80px;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+
+        .logo {
+            position: fixed;
+            top: 40px;
+            left: 60px;
+            font-size: 11px;
+            letter-spacing: 4px;
+            font-weight: 500;
+            z-index: 100;
+        }
+
+        .logo a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logo a:hover {
+            opacity: 0.7;
+        }
+
+        .auth-container {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            padding: 20px;
+            z-index: 1;
+        }
+
+        .auth-card {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(40px);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-header {
+            padding: 60px 60px 40px;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .auth-badge {
+            display: inline-block;
+            padding: 1px;
+            background: linear-gradient(90deg, var(--border), var(--text-muted), var(--border));
+            margin-bottom: 30px;
+        }
+
+        .auth-badge-inner {
+            background: var(--bg-dark);
+            padding: 10px 24px;
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .auth-title {
+            font-size: 36px;
+            font-weight: 300;
+            letter-spacing: 8px;
+            margin-bottom: 12px;
+        }
+
+        .auth-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .messages {
+            padding: 20px 60px;
+        }
+
+        .message {
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .message.success {
+            border-color: #44ff44;
+            background: rgba(68, 255, 68, 0.1);
+            color: #44ff44;
+        }
+
+        .message.error {
+            border-color: #ff4444;
+            background: rgba(255, 68, 68, 0.1);
+            color: #ff4444;
+        }
+
+        .auth-body {
+            padding: 60px;
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 16px 20px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.4s ease;
+            letter-spacing: 1px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.5;
+        }
+
+        .form-checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .form-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 1px solid var(--border);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-checkbox:checked {
+            background: var(--text-primary);
+            border-color: var(--text-primary);
+        }
+
+        .form-checkbox-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .form-submit {
+            width: 100%;
+            background: var(--text-primary);
+            border: none;
+            color: var(--bg-dark);
+            padding: 18px;
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            font-weight: 500;
+            margin-bottom: 30px;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 60px rgba(255, 255, 255, 0.3);
+        }
+
+        .form-divider {
+            text-align: center;
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .form-divider::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .form-divider-text {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 0 20px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            position: relative;
+        }
+
+        .form-switch {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        .form-switch-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 2px;
+        }
+
+        .form-switch-link:hover {
+            border-bottom-color: var(--text-primary);
+        }
+
+        .auth-footer {
+            padding: 40px 60px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .auth-card {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                left: 30px;
+                top: 30px;
+            }
+
+            .auth-header {
+                padding: 40px 30px 30px;
+            }
+
+            .auth-body {
+                padding: 40px 30px;
+            }
+
+            .auth-form {
+                left: 30px;
+                right: 30px;
+            }
+
+            .messages {
+                padding: 20px 30px;
+            }
+
+            .auth-title {
+                font-size: 28px;
+                letter-spacing: 6px;
+            }
+
+            .auth-footer {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-bg"></div>
+    <div class="auth-grid"></div>
+
+    <div class="logo"><a href="/">KAVACH</a></div>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-badge">
+                    <div class="auth-badge-inner">Secure Access</div>
+                </div>
+                <h1 class="auth-title">ENTER</h1>
+                <p class="auth-subtitle">Authentication Required</p>
+            </div>
+
+            <!-- Django Messages -->
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="auth-body">
+                <!-- Login Form -->
+                <form class="auth-form active" id="loginForm" action="{% url 'dashboard' %}" method="POST">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email Address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="form-input"
+                            placeholder="your@email.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="form-input"
+                            placeholder="Enter your password"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-checkbox-group">
+                        <input type="checkbox" id="rememberMe" name="remember" class="form-checkbox">
+                        <label for="rememberMe" class="form-checkbox-label">Remember Me</label>
+                    </div>
+
+                    <button type="submit" class="form-submit">Sign In</button>
+
+                    <div class="form-divider">
+                        <span class="form-divider-text">OR</span>
+                    </div>
+
+                    <div class="form-switch">
+                        Don't have an account?
+                        <a href="#" class="form-switch-link" onclick="showSignup(); return false;">Create Account</a>
+                    </div>
+                </form>
+
+                <!-- Signup Form -->
+                <form class="auth-form" id="signupForm" action="{% url 'register' %}" method="POST">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label class="form-label" for="signupName">Full Name</label>
+                        <input
+                            type="text"
+                            id="signupName"
+                            name="name"
+                            class="form-input"
+                            placeholder="John Doe"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signupEmail">Email Address</label>
+                        <input
+                            type="email"
+                            id="signupEmail"
+                            name="email"
+                            class="form-input"
+                            placeholder="your@email.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signupPassword">Password</label>
+                        <input
+                            type="password"
+                            id="signupPassword"
+                            name="password"
+                            class="form-input"
+                            placeholder="Create a strong password"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signupPasswordConfirm">Confirm Password</label>
+                        <input
+                            type="password"
+                            id="signupPasswordConfirm"
+                            name="password_confirm"
+                            class="form-input"
+                            placeholder="Confirm your password"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-checkbox-group">
+                        <input type="checkbox" id="agreeTerms" name="agree_terms" class="form-checkbox" required>
+                        <label for="agreeTerms" class="form-checkbox-label">I agree to Terms & Conditions</label>
+                    </div>
+
+                    <button type="submit" class="form-submit">Create Account</button>
+
+                    <div class="form-divider">
+                        <span class="form-divider-text">OR</span>
+                    </div>
+
+                    <div class="form-switch">
+                        Already have an account?
+                        <a href="#" class="form-switch-link" onclick="showLogin(); return false;">Sign In</a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="auth-footer">
+                © 2025 PROJECT KAVACH — SECURED ACCESS
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSignup() {
+            document.getElementById('loginForm').classList.remove('active');
+            document.getElementById('signupForm').classList.add('active');
+        }
+
+        function showLogin() {
+            document.getElementById('signupForm').classList.remove('active');
+            document.getElementById('loginForm').classList.add('active');
+        }
+    </script>
+</body>
+</html>
